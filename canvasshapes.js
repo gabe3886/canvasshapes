@@ -146,6 +146,43 @@ function CanvasShapes(canvasID, defaults) {
 			this.context.stroke();
 		}		
 	};
+
+    /**
+     * Draw a right angled triangle
+     * @param width - the width of the triangle in px
+     * @param height - the height of the triangle in px
+     * @param leftPosition - the position of the corner of the right angle from the left of the canvas in px
+     * @param topPosition - the position of the corner of the right angle from the left of the canvas in px
+     * @param rightToLeft - does the triangle go from right to left from the right angle (default false)
+     */
+    this.rightAngletriangle = function(width, height, leftPosition, topPosition, rightToLeft) {
+        this.context.beginPath();
+        this.context.moveTo(leftPosition, topPosition); // the point on the corner of the right angle.
+
+        // draw the bottom line
+        if (rightToLeft !== undefined && rightToLeft === true)
+        {
+            // have the right angle at the bottom right
+            this.context.lineTo(parseInt(leftPosition) - parseInt(width), topPosition);
+        }
+        else
+        {
+            // the right angle is the bottom left
+            this.context.lineTo(parseInt(leftPosition) + parseInt(width), topPosition);
+        }
+
+        // draw the hypotenuse
+        this.context.lineTo(leftPosition, parseInt(topPosition) - parseInt(height));
+        this.context.lineTo(leftPosition, topPosition);
+
+        this.context.fill();
+
+        if (this.lineWidth > 0)
+        {
+            this.context.stroke();
+        }
+
+    };
 	
 	/*******************************
 	 * Set defaults for the canvas *
