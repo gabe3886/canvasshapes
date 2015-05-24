@@ -9,6 +9,7 @@ At the present time, the following shapes are available:
 - Square
 - Rectangle
 - Circle
+- Right angle triangles
 
 ## How do I use CanvasShapes
 Include the CanvasShapes javascript in the head of your HTML file
