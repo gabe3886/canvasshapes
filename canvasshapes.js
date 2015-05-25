@@ -122,12 +122,8 @@ function CanvasShapes(canvasID, defaults) {
 	this.rectangle = function(width, height, leftPosition, topPosition) {
 		this.context.beginPath();
 		this.context.rect(leftPosition, topPosition, width, height);
-		this.context.fill();
-		// only draw a line if we want one.
-		if (this.lineWidth > 0)
-		{
-			this.context.stroke();
-		}	
+
+        this.drawShape();
 	};
 	
 	/**
@@ -139,12 +135,8 @@ function CanvasShapes(canvasID, defaults) {
 	this.circle = function(radius, centreLeft, centreTop) {
 		this.context.beginPath();
 		this.context.arc(centreLeft, centreTop, radius, 0, 2 * Math.PI, false);
-		this.context.fill();
-		// only draw a line if we want one.
-		if (this.lineWidth > 0)
-		{
-			this.context.stroke();
-		}		
+
+        this.drawShape();
 	};
 
     /**
@@ -175,12 +167,7 @@ function CanvasShapes(canvasID, defaults) {
         this.context.lineTo(leftPosition, parseInt(topPosition) - parseInt(height));
         this.context.lineTo(leftPosition, topPosition);
 
-        this.context.fill();
-
-        if (this.lineWidth > 0)
-        {
-            this.context.stroke();
-        }
+        this.drawShape();
 
     };
 
@@ -198,14 +185,20 @@ function CanvasShapes(canvasID, defaults) {
         this.context.lineTo(leftPosition - opposite, topPosition + adjacent);
         this.context.lineTo(leftPosition, topPosition);
 
-        this.context.fill();
+        this.drawShape();
+    }
 
+    /***************************************************
+     * Draw the actual shape on the canvas             *
+     * This has been refactored out of the other calls *
+     ***************************************************/
+    this.drawShape = function() {
+        this.context.fill();
+        // only draw a line if we want one.
         if (this.lineWidth > 0)
         {
             this.context.stroke();
         }
-
-
     }
 	
 	/*******************************
