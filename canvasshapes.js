@@ -183,6 +183,30 @@ function CanvasShapes(canvasID, defaults) {
         }
 
     };
+
+    this.equilateralTriangle = function(length, leftPosition, topPosition)
+    {
+        this.context.beginPath();
+        this.context.moveTo(leftPosition, topPosition);
+
+        // Work out where the bottom right point needs to be
+        var opposite = length / 2;
+        var adjacentSquare = (length * length) - (opposite * opposite);
+        var adjacent = Math.sqrt(adjacentSquare);
+
+        this.context.lineTo(leftPosition + opposite, topPosition + adjacent);
+        this.context.lineTo(leftPosition - opposite, topPosition + adjacent);
+        this.context.lineTo(leftPosition, topPosition);
+
+        this.context.fill();
+
+        if (this.lineWidth > 0)
+        {
+            this.context.stroke();
+        }
+
+
+    }
 	
 	/*******************************
 	 * Set defaults for the canvas *
