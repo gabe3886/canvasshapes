@@ -171,6 +171,12 @@ function CanvasShapes(canvasID, defaults) {
 
     };
 
+    /**
+     * Draw an equilateral triangle
+     * @param length - the length of the sides in px
+     * @param leftPosition - the position of the top point from the left of the canvas in px
+     * @param topPosition - position of the top point from the top of the canvas in px
+     */
     this.equilateralTriangle = function(length, leftPosition, topPosition)
     {
         this.context.beginPath();
@@ -188,6 +194,33 @@ function CanvasShapes(canvasID, defaults) {
         this.drawShape();
     }
 
+    this.pentagon = function(length, leftPosition, topPosition) {
+        this.context.beginPath();
+        this.context.moveTo(leftPosition, topPosition);
+
+        // Do some trigonometry for measurements for the first line
+        var leftOffset = Math.sin(this._degreesToRadians(54)) * length;
+        var downOffsetSquare = (length * length) - (leftOffset * leftOffset);
+        var downOffset = Math.sqrt(downOffsetSquare);
+        // draw the first line
+        this.context.lineTo(leftPosition + leftOffset, topPosition + downOffset);
+
+        // draw the second line
+        this.context.lineTo(leftPosition + (length / 2), topPosition + downOffset + leftOffset);
+
+        //draw the third line
+        this.context.lineTo(leftPosition + (length / 2) - length, topPosition + downOffset + leftOffset);
+
+        //draw the 4th line
+        this.context.lineTo(leftPosition - leftOffset, topPosition + downOffset);
+
+        // close the shape
+        this.context.lineTo(leftPosition, topPosition);
+
+        // fill the shape and draw the line if needed
+        this.drawShape();
+    }
+
     /***************************************************
      * Draw the actual shape on the canvas             *
      * This has been refactored out of the other calls *
@@ -200,7 +233,18 @@ function CanvasShapes(canvasID, defaults) {
             this.context.stroke();
         }
     }
-	
+
+    /***********************************
+     * Some helper functions if needed *
+     ***********************************/
+    this._degreesToRadians = function(degrees) {
+        return degrees * (Math.PI / 180);
+    }
+
+    this._radiansToDegrees = function(radians) {
+        return radians * (180 / Math.PI);
+    }
+
 	/*******************************
 	 * Set defaults for the canvas *
 	 *******************************/
@@ -239,7 +283,7 @@ function CanvasShapes(canvasID, defaults) {
 	}
 	else
 	{
-		this.setLineWidth(1); // thin line	
+		this.setLineWidth(1); // thin line
 		this.setLineColor('#000');	// black line
 		this.setFillColor('#fff');	// white fill
 	}

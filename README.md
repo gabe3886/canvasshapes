@@ -11,6 +11,7 @@ At the present time, the following shapes are available:
 - Circle
 - Right angle triangles
 - Equilateral triangles 
+- Pentagon (though I'm not too sure it's a regular pentagon)
 
 ## How do I use CanvasShapes
 Include the CanvasShapes javascript in the head of your HTML file
